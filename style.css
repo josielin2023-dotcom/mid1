@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Roboto:wght@400;700&display=swap');
+
+/* ====== 配色變數：河水藍 + 夕陽金 + 暮色橘 ====== */
+:root{
+    --river: rgba(87, 117, 144, 1);      /* 沿用原本的河水藍 */
+    --night: #1b2a41;                    /* 夜空深藍 */
+    --gold:  #ffc857;                    /* 夕陽金 */
+    --dusk:  #f08a5d;                    /* 暮色橘 */
+    --paper: #f5f7fa;                    /* 淺灰藍底色 */
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--night);
+    background: var(--paper);
+    font-family: "Roboto", "Noto Sans TC", sans-serif;
+    scroll-behavior: smooth;
+}
+html{ scroll-behavior: smooth; }
+
+::selection{
+    background: var(--river);
+    color: #fff;
+}
+
+a{
+    text-decoration: none;
+    color: var(--night);
+    display: inline-block;
+}
+
+h1, h2{
+    font-family: "Noto Serif TC", serif;
+    margin: 0;
+}
+
+/*header*/
+header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: auto;
+    z-index: 200000;
+}
+
+.menu{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+/*logo*/
+.logo{ flex: 0 0 120px; }
+
+.logo img{
+    width: 100%;
+    margin: auto;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 50%;
+}
+
+/*nav*/
+nav{
+    flex: 1;
+    text-align: right;
+}
+
+nav a{
+    padding: 30px 40px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 6px rgba(0,0,0,.45);
+    position: relative;
+}
+
+/* 底線從左滑出 */
+nav a::after{
+    content: "";
+    position: absolute;
+    left: 40px; right: 40px; bottom: 22px;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s;
+}
+nav a:hover::after{ transform: scaleX(1); }
+
+/*hero*/
+.hero{
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    background: var(--night);
+    overflow: hidden;
+}
+
+.hero img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+/* 夕陽漸層蓋在圖片上，讓文字更清楚 */
+.hero::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(27,42,65,.65) 0%, rgba(240,138,93,.15) 60%, rgba(255,200,87,.25) 100%);
+    pointer-events: none;
+}
+
+.hero_text{
+    position: absolute;
+    z-index: 2;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    width: 90%;
+    animation: rise 1.4s ease-out both;   /* 只有首頁載入時出現一次 */
+}
+
+.hero h1{
+    font-size: 110px;
+    letter-spacing: .1em;
+    text-shadow: 0 4px 20px rgba(0,0,0,.4);
+}
+
+.hero_text p{
+    font-size: 1.4rem;
+    margin: 10px 0 30px;
+    letter-spacing: .08em;
+}
+
+.btn{
+    background: var(--gold);
+    color: var(--night);
+    font-weight: bold;
+    padding: 14px 36px;
+    border-radius: 50px;
+    transition: transform .3s, background .3s;
+}
+.btn:hover{
+    background: var(--dusk);
+    transform: translateY(-4px);
+}
+
+@keyframes rise{
+    from{ opacity: 0; transform: translate(-50%, -30%); }
+    to  { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/*marquee*/
+.marquee{
+    width: 100%;
+    overflow: hidden;
+    background: var(--night);
+    color: var(--gold);
+    padding: 20px 0;
+}
+
+.marquee-track{
+    display: flex;
+    width: max-content;
+    animation: marquee 25s linear infinite;
+}
+.marquee:hover .marquee-track{ animation-play-state: paused; }
+
+@keyframes marquee{
+    from{ transform: translateX(0); }
+    to  { transform: translateX(-50%); }
+}
+
+.marquee-content{
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: max(1.5rem, 1vw);
+    letter-spacing: .2em;
+}
+
+/*section*/
+section{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 80%;
+    margin: 70px auto;
+}
+
+section h1{
+    flex: 0 0 100%;
+    color: var(--night);
+    text-align: center;
+    font-size: 2.6rem;
+}
+
+.lead{
+    flex: 0 0 100%;
+    text-align: center;
+    margin: -10px 0 20px;
+    color: var(--river);
+}
+
+/*card：拱門造型圖片*/
+.card{
+    flex: 0 0 calc((100% - 20px * 3) / 4);
+    text-align: center;
+    cursor: pointer;
+}
+
+.card a{ width: 100%; }
+
+.card .pic{
+    overflow: hidden;
+    border-radius: 999px 999px 20px 20px;   /* 上方圓拱，像老街的門洞 */
+    border: solid 2px var(--river);
+    aspect-ratio: 3 / 4;
+}
+
+.card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1s;
+}
+
+.card:hover img{ transform: scale(1.12); }
+
+.card h2{
+    font-size: 1.5rem;
+    margin-top: 20px;
+    transition: color .3s;
+}
+.card:hover h2{ color: var(--dusk); }
+
+.card p{ margin-top: 20px;
+    margin: 6px 0 0;
+    font-size: 1rem;
+    color: var(--river);
+}
+
+/*article*/
+article{
+    flex: 0 0 100%;
+    margin: auto;
+    margin-bottom: 30px;
+    border: solid 4px var(--river);
+    border-radius: 50px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    background: #fff;
+    transition: background .4s, border-color .4s, transform .4s;
+}
+
+section > a{ flex: 0 0 100%; }
+
+section > a:nth-of-type(2n) article{ flex-direction: row-reverse; }
+
+article:hover{
+    border-color: var(--dusk);
+    background: #fff4ea;
+    transform: translateY(-6px);
+}
+
+.a_left{ flex: 1; overflow: hidden; }
+
+.a_left img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: bottom;
+    transition: transform 1s;
+}
+article:hover .a_left img{ transform: scale(1.06); }
+
+.a_right{
+    flex: 1;
+    padding: 4%;
+    box-sizing: border-box;
+    text-align: left;
+    line-height: 2rem;
+}
+
+.a_right h2{
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+/*footer*/
+footer{
+    clear: both;
+    width: 100%;
+    padding: 40px 0;
+    text-align: center;
+    background: var(--night);
+    color: #fff;
+    font-size: 1rem;
+}
+footer p{ margin: 6px 0; }
+
+/*for tablets*/
+@media only screen and (max-width: 1200px){
+    .hero h1{ font-size: 80px; }
+    .card{ flex: 0 0 calc((100% - 20px) / 2); }
+    nav a{ padding: 30px 20px; }
+    nav a::after{ left: 20px; right: 20px; }
+}
+
+/*for mobile*/
+@media only screen and (max-width: 768px){
+    body{ font-size: 1.1rem; }
+
+    /*menu*/
+    .menu{
+        margin: 20px auto;
+        flex-direction: column;
+    }
+    .logo{ text-align: center; flex: 0 0 auto; }
+    .logo img{ width: 30%; margin: auto; }
+    nav{ text-align: center; }
+    nav a{ padding: 6px 12px; }
+    nav a::after{ left: 12px; right: 12px; bottom: 0; }
+
+    /*hero*/
+    .hero{ height: 70vh; }
+    .hero_text{ top: 55%; }
+    .hero h1{ font-size: 44px; }
+    .hero_text p{ font-size: 1rem; }
+
+    /*card：手機版維持兩欄*/
+    section{ width: 90%; }
+    section h1{ font-size: 2rem; }
+    .card{ flex: 0 0 calc((100% - 20px) / 2); }
+    .card h2{ font-size: 1.2rem; }
+    .card p{ font-size: .9rem; }
+
+    /*article：手機版上下排列*/
+    article{ flex-direction: column; }
+    section > a:nth-of-type(2n) article{ flex-direction: column; }
+    .a_left img{ height: 220px; }
+    .a_right{ padding: 6%; }
+    .a_right h2{ font-size: 1.6rem; }
+}
+
+/* 尊重使用者「減少動態」設定 */
+@media (prefers-reduced-motion: reduce){
+    .marquee-track, .hero_text{ animation: none; }
+}
